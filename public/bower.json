@@ -1,0 +1,14 @@
+{
+  "name": "r3-investment-admin",
+  "authors": [
+    "danielgdz <danielgrillz@gmail.com>"
+  ],
+  "description": "Admin for r3-investment company",
+  "main": "",
+  "license": "MIT",
+  "homepage": "r3-investment-admin.app",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-material-design": "^4.0.2"
+  }
+}
