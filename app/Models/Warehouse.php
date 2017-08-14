@@ -30,6 +30,7 @@ class Warehouse extends Model
     }
 
     protected $cast = [
+        'description' => 'array',
         'images' => 'array',
         'comments' => 'array',
     ];

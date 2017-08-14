@@ -47,24 +47,77 @@ class WarehousesController extends Controller
         if (isset($data['id'])) {
             return $this->update($request, (int)$data['id']);
         } else {
-            $image = $request->file('url_image');
-            
-            if (!is_null($image)) {    
-                $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/warehouses');
-                $img = Image::make($image->getRealPath());
-                $img->save($destinationPath . '/' . $input['imagename']);
-                $image->move($destinationPath, $input['imagename']);
-                $data['url_image'] = '/images/warehouses/' . $input['imagename'];
-            } else {
-                unset($data['url_image']);
-            }
-
             $warehouse = new Warehouse();
-            $warehouse->create($data);
+            if (isset($data['images'])) {
+                $data = $this->uploadImages($data, $request->file('images'));
+                $images = new \stdClass();
+                foreach ($data['images'] as $key => $value) {
+                    foreach ($value as $option => $url) {
+                        if (isset($images->$key)) {
+                            $images->$key->$option = $url;
+                        } else {
+                            $images->$key = new \stdClass();
+                            $images->$key->$option = $url;
+                        }
+                    }
+                }
+                $warehouse->images = json_encode($images);
+            }
+            
+            $warehouse->name = $data['name'];
+            $warehouse->description = json_encode($data['description']);
+            $warehouse->flag_active = $data['flag_active'];
+            $warehouse->save();
 
             return redirect('/' . self::VIEW_PATH_NAME);
         }
+    }
+
+    private function uploadImages($data = [], $images) {
+        //Image 0
+        if (isset($images[0])) {
+            foreach ($images[0] as $key => $value) {
+                $image = $images[0][$key];
+                if (!is_null($image)) {
+                    $imagename = time().'.'.$image->getClientOriginalExtension();
+                    $destinationPath = public_path('/images/warehouses');
+                    $img = Image::make($image->getRealPath());
+                    $img->save($destinationPath . '/' . $imagename);
+                    $image->move($destinationPath, $imagename);
+                    $data['images'][0][$key] = '/images/warehouses/' . $imagename;
+                }
+            }
+        }
+        //Image 1
+        if (isset($images[1])) {
+            foreach ($images[1] as $key => $value) {
+                $image = $images[1][$key];
+                if (!is_null($image)) {
+                    $imagename = time().'.'.$image->getClientOriginalExtension();
+                    $destinationPath = public_path('/images/warehouses');
+                    $img = Image::make($image->getRealPath());
+                    $img->save($destinationPath . '/' . $imagename);
+                    $image->move($destinationPath, $imagename);
+                    $data['images'][1][$key] = '/images/warehouses/' . $imagename;
+                }
+            }
+        }
+        //Image 2
+        if (isset($images[2])) {
+            foreach ($images[2] as $key => $value) {
+                $image = $images[2][$key];
+                if (!is_null($image)) {
+                    $imagename = time().'.'.$image->getClientOriginalExtension();
+                    $destinationPath = public_path('/images/warehouses');
+                    $img = Image::make($image->getRealPath());
+                    $img->save($destinationPath . '/' . $imagename);
+                    $image->move($destinationPath, $imagename);
+                    $data['images'][2][$key] = '/images/warehouses/' . $imagename;
+                }
+            }
+        }
+        
+        return $data;
     }
 
     /**
@@ -88,6 +141,8 @@ class WarehousesController extends Controller
     {
         $warehouse = Warehouse::whereNull(Warehouse::TABLE_NAME . '.deleted_at')->find($id);
         if (!is_null($warehouse)) {
+            $warehouse->description = json_decode($warehouse->description);
+            $warehouse->images = json_decode($warehouse->images);
             return view(self::VIEW_PATH_NAME . '.edit', compact('warehouse', $warehouse));
         } else {
             return view('erros.404');
@@ -106,20 +161,29 @@ class WarehousesController extends Controller
         $warehouse = Warehouse::whereNull(Warehouse::TABLE_NAME . '.deleted_at')->find($id);
         if (!is_null($warehouse)) {   
             $data = $request->all();
-            $image = $request->file('url_image');
-            
-            if (!is_null($image)) {    
-                $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/warehouses');
-                $img = \Image::make($image->getRealPath());
-                $img->save($destinationPath . '/' . $input['imagename']);
-                $image->move($destinationPath, $input['imagename']);
-                $data['url_image'] = '/images/warehouses/' . $input['imagename'];
-            } else {
-                unset($data['url_image']);
+            if (isset($data['images'])) {
+                $data = $this->uploadImages($data, $request->file('images'));
+                if (is_null($warehouse->images)) {
+                    $images = new \stdClass();
+                } else {
+                    $images = json_decode($warehouse->images);
+                }
+                foreach ($data['images'] as $key => $value) {
+                    foreach ($value as $option => $url) {
+                        if (isset($images->$key)) {
+                            $images->$key->$option = $url;
+                        } else {
+                            $images->$key = new \stdClass();
+                            $images->$key->$option = $url;
+                        }
+                    }
+                }
+                $warehouse->images = json_encode($images);
             }
 
-            $warehouse->fill($data);
+            $warehouse->name = $data['name'];
+            $warehouse->description = json_encode($data['description']);
+            $warehouse->flag_active = $data['flag_active'];
             $warehouse->save();
 
             return redirect('/' . self::VIEW_PATH_NAME);
