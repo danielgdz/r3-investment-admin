@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//warehouses
+Route::get('/warehouses', 'Api\WarehouseController@index')->name('api-warehouse-list');
+Route::get('/warehouses-simple-list', 'Api\WarehouseController@getSimpleList')->name('api-warehouse-simple-list');
+Route::get('/warehouses/{id?}', 'Api\WarehouseController@show')->name('api-warehouse-show');
+Route::get('/warehouses-with-products/{id?}', 'Api\WarehouseController@showWithProducts')->name('api-warehouse-show-with-products');
+//wines
+Route::get('/wines', 'Api\WineController@index')->name('api-wine-list');
+Route::get('/wines/{id?}', 'Api\WineController@show')->name('api-wine-show');

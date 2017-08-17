@@ -36,7 +36,7 @@
                                     <label class="form-control">Resumen</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="short_description" cols="30" rows="5">{{ $wine->short_description }}</textarea>
+                                    <textarea style="resize:none" class="form-control" name="short_description" cols="30" rows="5">{{ $wine->short_description }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -44,18 +44,17 @@
                                     <label class="form-control">Descripción completa</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="description" cols="30" rows="5">{{ $wine->description }}</textarea>
+                                    <textarea style="resize:none" class="form-control" name="description" cols="30" rows="5">{{ $wine->description }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12">
-                                <div class="col-md-2">
-                                    <label class="form-control">Imagen</label>
-                                </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     @if (!is_null($wine->url_image))
-                                        <img src="{{ $wine->url_image }}" height="25px">
+                                        <label class="form-control"><a href="{{ $wine->url_image }}" target="_blank">Imagen principal</a></label>
+                                    @else
+                                        <label class="form-control">Imagen principal</label>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
@@ -63,70 +62,83 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="col-md-2">
-                                    <label class="form-control">PDF</label>
-                                </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     @if (!is_null($wine->url_pdf))
-                                        <a href="{{ $wine->url_pdf }}">PDF</a>
+                                        <label class="form-control"><a href="{{ $wine->url_pdf }}" target="_blank">Archivo PDF</a></label>
+                                    @else
+                                        <label class="form-control">Archivo PDF</label>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control" type="file" name="url_pdf">
                                 </div>
                             </div>
-
-                            
-                            
-
-                            <label class="form-control">Ficha técnica</label>
-                            <textarea class="form-control" name="tech_details" cols="30" rows="5">{{ $wine->tech_details }}</textarea><br>
-
-                            <label class="form-control">Estrellas</label>
-                            <select class="form-control" name="stars">
-                                @if ( (int)$wine->stars === 1 )
-                                    <option selected="selected" value="1">1 estrella</option>
-                                    <option value="2">2 estrellas</option>
-                                    <option value="3">3 estrellas</option>
-                                    <option value="4">4 estrellas</option>
-                                    <option value="5">5 estrellas</option>
-                                @elseif ( (int)$wine->stars === 2 )
-                                    <option value="1">1 estrella</option>
-                                    <option selected="selected" value="2">2 estrellas</option>
-                                    <option value="3">3 estrellas</option>
-                                    <option value="4">4 estrellas</option>
-                                    <option value="5">5 estrellas</option>
-                                @elseif ( (int)$wine->stars === 3 )
-                                    <option value="1">1 estrella</option>
-                                    <option value="2">2 estrellas</option>
-                                    <option selected="selected" value="3">3 estrellas</option>
-                                    <option value="4">4 estrellas</option>
-                                    <option value="5">5 estrellas</option>
-                                @elseif ( (int)$wine->stars === 4 )
-                                    <option value="1">1 estrella</option>
-                                    <option value="2">2 estrellas</option>
-                                    <option value="3">3 estrellas</option>
-                                    <option selected="selected" value="4">4 estrellas</option>
-                                    <option value="5">5 estrellas</option>
-                                @else
-                                    <option value="1">1 estrella</option>
-                                    <option value="2">2 estrellas</option>
-                                    <option value="3">3 estrellas</option>
-                                    <option value="4">4 estrellas</option>
-                                    <option selected="selected" value="5">5 estrellas</option>
-                                @endif
-                            </select><br>
-
-                            <label class="form-control">Estado</label>
-                            <select class="form-control" name="flag_active">
-                                @if( (int)$wine->flag_active === 1 )
-                                    <option selected="selected" value="1">ACTIVA</option>
-                                    <option value="2">INACTIVA</option>
-                                @else
-                                    <option value="1">ACTIVA</option>
-                                    <option selected="selected" value="2">INACTIVA</option>
-                                @endif
-                            </select><br>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <label class="form-control">Ficha técnica</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <textarea style="resize:none" class="form-control" name="tech_details" cols="30" rows="5">{{ $wine->tech_details }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label class="form-control">Estrellas</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="stars">
+                                        @if ( (int)$wine->stars === 1 )
+                                            <option selected="selected" value="1">1 estrella</option>
+                                            <option value="2">2 estrellas</option>
+                                            <option value="3">3 estrellas</option>
+                                            <option value="4">4 estrellas</option>
+                                            <option value="5">5 estrellas</option>
+                                        @elseif ( (int)$wine->stars === 2 )
+                                            <option value="1">1 estrella</option>
+                                            <option selected="selected" value="2">2 estrellas</option>
+                                            <option value="3">3 estrellas</option>
+                                            <option value="4">4 estrellas</option>
+                                            <option value="5">5 estrellas</option>
+                                        @elseif ( (int)$wine->stars === 3 )
+                                            <option value="1">1 estrella</option>
+                                            <option value="2">2 estrellas</option>
+                                            <option selected="selected" value="3">3 estrellas</option>
+                                            <option value="4">4 estrellas</option>
+                                            <option value="5">5 estrellas</option>
+                                        @elseif ( (int)$wine->stars === 4 )
+                                            <option value="1">1 estrella</option>
+                                            <option value="2">2 estrellas</option>
+                                            <option value="3">3 estrellas</option>
+                                            <option selected="selected" value="4">4 estrellas</option>
+                                            <option value="5">5 estrellas</option>
+                                        @else
+                                            <option value="1">1 estrella</option>
+                                            <option value="2">2 estrellas</option>
+                                            <option value="3">3 estrellas</option>
+                                            <option value="4">4 estrellas</option>
+                                            <option selected="selected" value="5">5 estrellas</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label class="form-control">Estado</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="flag_active">
+                                        @if( (int)$wine->flag_active === 1 )
+                                            <option selected="selected" value="1">ACTIVA</option>
+                                            <option value="2">INACTIVA</option>
+                                        @else
+                                            <option value="1">ACTIVA</option>
+                                            <option selected="selected" value="2">INACTIVA</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <input type="hidden" name="id" value="{{ $wine->id }}"/><br>
                         <button type="submit" class="form-control">Guardar</button>
