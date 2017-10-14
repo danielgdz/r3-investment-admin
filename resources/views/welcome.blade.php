@@ -77,8 +77,10 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    R3 Investment Admin
+                <div class="col-md-12">
+                    <img style="width:85%" src="http://52.15.217.203/images/r3-investment/logo/white-logo.png">
+			<hr>
+                    <img style="width:85%" src="http://52.15.217.203/images/r3-investment/logo/white-logo-old.png">
                 </div>
             </div>
         </div>

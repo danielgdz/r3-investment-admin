@@ -70,6 +70,10 @@ class WarehouseController extends Controller
         $object = Warehouse::whereNull(Warehouse::TABLE_NAME . '.deleted_at')
                     ->where(Warehouse::TABLE_NAME . '.flag_active', Warehouse::STATE_ACTIVE)
                     ->find($id);
+	
+	if (!is_null($object)){
+		$object->description = json_decode($object->description);
+	}
 
         return $object;
     }
@@ -87,6 +91,11 @@ class WarehouseController extends Controller
                     ->find($id);
             
         if (!is_null($object)) {
+
+        if (!is_null($object)){
+                $object->description = json_decode($object->description);
+        }
+
             $products = Wine::select(Wine::TABLE_NAME . '.id',
                     Wine::TABLE_NAME . '.name', Wine::TABLE_NAME . '.short_description',
                     Wine::TABLE_NAME . '.stars', Wine::TABLE_NAME . '.url_image')
