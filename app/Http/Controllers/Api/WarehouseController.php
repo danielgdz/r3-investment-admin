@@ -99,7 +99,7 @@ class WarehouseController extends Controller
             }
 
             if (!is_null($object->images)) {
-                if (!is_array($object->images)) {
+                if (is_string($object->images)) {
                     $object->images = json_decode($object->images);
                 }
             }
