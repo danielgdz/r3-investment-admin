@@ -90,6 +90,8 @@ class WarehouseController extends Controller
         $object = Warehouse::whereNull(Warehouse::TABLE_NAME . '.deleted_at')
                     ->where(Warehouse::TABLE_NAME . '.flag_active', Warehouse::STATE_ACTIVE)
                     ->find($id);
+
+        dd($object->images);
             
         if (!is_null($object)) {
 
