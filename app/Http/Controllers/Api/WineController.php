@@ -18,7 +18,9 @@ class WineController extends Controller
     public function index(Request $request)
     {
         //
-        $list = Wine::whereNull(Wine::TABLE_NAME . '.deleted_at')
+        $list = Wine::Join(Warehouse::TABLE_NAME, Wine::TABLE_NAME . '.warehouses_id', '=', Warehouse::TABLE_NAME . '.id')
+                ->select(DB::raw(Warehouse::TABLE_NAME . '.name as warehouse_name'), Wine::TABLE_NAME . '.*')
+                ->whereNull(Wine::TABLE_NAME . '.deleted_at')
                 ->where(Wine::TABLE_NAME . '.flag_active', Wine::STATE_ACTIVE)
                 ->get();
     
