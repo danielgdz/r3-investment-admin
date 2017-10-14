@@ -14,6 +14,12 @@
                         <div class="col-md-10">
                             <input class="form-control" type="text" maxlength="200" name="name" value="{{ $warehouse->name }}"/><br>
                         </div>
+                        <div class="col-md-2">
+                            <label class="form-control">Código</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" maxlength="5" name="code" value="{{ $warehouse->code }}"/><br>
+                        </div>
                         <div class="col-md-4" style="border-radius: 25px; border: 2px solid #810B29;">
                             <label class="form-control">Descripción de la zona</label>
                             <textarea style="resize:none" class="form-control" name="description[0]" cols="30" rows="5">{{ @$warehouse->description[0] }}</textarea><br>

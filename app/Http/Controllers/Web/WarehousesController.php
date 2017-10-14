@@ -65,6 +65,7 @@ class WarehousesController extends Controller
             }
             
             $warehouse->name = $data['name'];
+            $warehouse->code = $data['code'];
             $warehouse->description = json_encode($data['description']);
             $warehouse->flag_active = $data['flag_active'];
             $warehouse->save();
@@ -182,6 +183,7 @@ class WarehousesController extends Controller
             }
 
             $warehouse->name = $data['name'];
+            $warehouse->code = $data['code'];
             $warehouse->description = json_encode($data['description']);
             $warehouse->flag_active = $data['flag_active'];
             $warehouse->save();
