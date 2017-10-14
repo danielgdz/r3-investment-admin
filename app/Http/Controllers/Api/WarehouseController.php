@@ -30,7 +30,8 @@ class WarehouseController extends Controller
      */
     public function getSimpleList(Request $request)
     {
-        $list = Warehouse::select(Warehouse::TABLE_NAME . '.id', Warehouse::TABLE_NAME . '.name')
+        $list = Warehouse::select(Warehouse::TABLE_NAME . '.id', Warehouse::TABLE_NAME . '.name',
+                        Warehouse::TABLE_NAME . '.code')
                     ->whereNull(Warehouse::TABLE_NAME . '.deleted_at')
                     ->where(Warehouse::TABLE_NAME . '.flag_active', Warehouse::STATE_ACTIVE)
                     ->get();

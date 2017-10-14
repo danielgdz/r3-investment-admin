@@ -18,7 +18,8 @@ class Warehouse extends Model
      * @var array
      */
     protected $fillable = [
-		'id','name','description','images','url_image','comments',
+        'id','name','description','images','url_image','comments',
+        'code',
 		//auditoria
 		'flag_active','created_at','updated_at','deleted_at'
     ];
