@@ -92,18 +92,17 @@ class WarehouseController extends Controller
                     ->find($id);
             
         if (!is_null($object)) {
-<<<<<<< HEAD
-
-        if (!is_null($object)){
-                $object->description = json_decode($object->description);
-        }
-=======
             if (!is_null($object->images)) {
                 if (!is_array($object->images)) {
                     $object->images = json_decode($object->images);
                 }
             }
->>>>>>> 520d30ff458ef28823d0d7720c103f9678277eeb
+
+            if (!is_null($object->images)) {
+                if (!is_array($object->images)) {
+                    $object->images = json_decode($object->images);
+                }
+            }
 
             $products = Wine::select(Wine::TABLE_NAME . '.id',
                     Wine::TABLE_NAME . '.name', Wine::TABLE_NAME . '.short_description',
