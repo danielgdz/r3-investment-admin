@@ -92,14 +92,14 @@ class WarehouseController extends Controller
                     ->find($id);
             
         if (!is_null($object)) {
-            if (!is_null($object->images)) {
-                if (is_string($object->images)) {
-                    $object->images = json_decode($object->images);
+            if (!is_null($object->description)) {
+                if (!is_array($object->description)) {
+                    $object->description = json_decode($object->description);
                 }
             }
 
             if (!is_null($object->images)) {
-                if (is_string($object->images)) {
+                if (!is_array($object->images)) {
                     $object->images = json_decode($object->images);
                 }
             }
